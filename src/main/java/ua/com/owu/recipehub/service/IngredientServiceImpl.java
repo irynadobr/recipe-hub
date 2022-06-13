@@ -1,6 +1,5 @@
 package ua.com.owu.recipehub.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -9,10 +8,12 @@ import ua.com.owu.recipehub.dao.IngredientDao;
 import ua.com.owu.recipehub.models.Ingredient;
 
 import java.util.List;
+
 @Service
-public class IngredientServiceImpl implements IngredientService{
-  @Autowired
-   private  IngredientDao ingredientDao;
+public class IngredientServiceImpl implements IngredientService {
+    @Autowired
+    private IngredientDao ingredientDao;
+
     @Override
     public Ingredient createIngredient(Ingredient ingredient) {
         return ingredientDao.saveAndFlush(ingredient);
@@ -39,4 +40,10 @@ public class IngredientServiceImpl implements IngredientService{
         }
         ingredientDao.deleteById(id);
     }
+
+    @Override
+    public Ingredient getIngredient(int id) {
+       return ingredientDao.findById(id).orElseThrow(() ->new RuntimeException());
+    }
+
 }
