@@ -15,5 +15,5 @@ public interface IngredientService {
 
     void deleteIngredient(int id);
 
-    Ingredient getIngredient(int ingredient);
+    Ingredient getIngredient(int id);
 }

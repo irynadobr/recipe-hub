@@ -1,11 +1,12 @@
 package ua.com.owu.recipehub.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ua.com.owu.recipehub.models.Ingredient;
+import ua.com.owu.recipehub.dto.RecipeDto;
+import ua.com.owu.recipehub.dto.RecipePage;
 import ua.com.owu.recipehub.models.Recipe;
-import ua.com.owu.recipehub.service.IngredientService;
 import ua.com.owu.recipehub.service.recipe.RecipeService;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class RecipeController {
     private RecipeService recipeService;
 
     @GetMapping(value = "")
-    public List<Recipe> getRecipes() {
-        return recipeService.getALLRecipes();
+    public RecipePage getRecipes(@RequestParam (defaultValue = "0") int page, @RequestParam (defaultValue = "10") int size) {
+        return recipeService.getALLRecipes(page,size);
     }
 
     @GetMapping(value = "/{id}")
@@ -26,9 +27,15 @@ public class RecipeController {
         return recipeService.getRecipe(id);
     }
 
+//    @PostMapping(value = "")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public Recipe insertRecipe(@RequestBody Recipe recipe) {
+//        return recipeService.createRecipe(recipe);
+//    }
+
     @PostMapping(value = "")
     @ResponseStatus(HttpStatus.CREATED)
-    public Recipe insertRecipe(@RequestBody Recipe recipe) {
+    public RecipeDto insertRecipe(@RequestBody RecipeDto recipe) {
         return recipeService.createRecipe(recipe);
     }
 

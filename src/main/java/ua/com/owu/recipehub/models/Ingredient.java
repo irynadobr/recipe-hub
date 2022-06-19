@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @AllArgsConstructor
 @Data
@@ -15,6 +16,7 @@ public class Ingredient {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+  @NotBlank
      private String type_ukr;
      private String name_ukr;
      private String type;

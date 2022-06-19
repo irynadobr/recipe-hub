@@ -7,24 +7,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
 @Entity
-public class Recipe {
+public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int id;
-    private String image;
-    private String title;
-    @ManyToOne(targetEntity = User.class)
+    private String category;
+    @OneToMany (targetEntity =Recipe.class)
+    @JoinColumn(name = "category_id")
     @JsonIgnore
-    private User author;
-    private String description;
-    @ManyToOne(targetEntity = Category.class)
-    @JsonIgnore
-    private Category category;
-   private double rating;
+    private List <Recipe> recipes;
+
 }

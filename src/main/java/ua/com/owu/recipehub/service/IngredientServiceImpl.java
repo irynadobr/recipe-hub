@@ -43,7 +43,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Ingredient getIngredient(int id) {
-       return ingredientDao.findById(id).orElseThrow(() ->new RuntimeException());
+       return ingredientDao.findById(id).orElseThrow(() ->new ResponseStatusException(HttpStatus.BAD_REQUEST, "No ingredient with id: " + id));
     }
 
 }

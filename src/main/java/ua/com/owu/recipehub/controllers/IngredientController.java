@@ -1,14 +1,15 @@
 package ua.com.owu.recipehub.controllers;
 
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import ua.com.owu.recipehub.dao.UserDao;
 import ua.com.owu.recipehub.models.Ingredient;
 import ua.com.owu.recipehub.service.IngredientService;
+import ua.com.owu.recipehub.validator.IngredientValidator;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,6 +18,8 @@ public class IngredientController {
     @Autowired
     private IngredientService ingredientService;
 
+    @Autowired
+    private IngredientValidator ingredientValidator;
     @GetMapping(value = "")
     public List<Ingredient> getIngredient() {
         return ingredientService.getAllIngredient();
@@ -29,13 +32,13 @@ public class IngredientController {
 
     @PostMapping(value = "")
     @ResponseStatus(HttpStatus.CREATED)
-    public Ingredient insertIngredient(@RequestBody Ingredient ingredient) {
+    public Ingredient insertIngredient(@RequestBody @Valid Ingredient ingredient) {
         return ingredientService.createIngredient(ingredient);
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Ingredient updateIngredient(@PathVariable int id, @RequestBody Ingredient ingredient) {
+    public Ingredient updateIngredient(@PathVariable int id, @RequestBody @Valid Ingredient ingredient) {
         return ingredientService.updateIngredient(id, ingredient);
     }
 
@@ -43,5 +46,10 @@ public class IngredientController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteIngredient(@PathVariable int id) {
         ingredientService.deleteIngredient(id);
+    }
+
+    @InitBinder
+    public void initBinder (WebDataBinder dataBinder) {
+        dataBinder.addValidators(ingredientValidator);
     }
 }
