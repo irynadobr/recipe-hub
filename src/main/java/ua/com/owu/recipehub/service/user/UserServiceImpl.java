@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import ua.com.owu.recipehub.dao.IngredientDao;
 import ua.com.owu.recipehub.dao.UserDao;
+import ua.com.owu.recipehub.dto.UserListRecipeDto;
+import ua.com.owu.recipehub.models.Recipe;
 import ua.com.owu.recipehub.models.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -17,9 +19,32 @@ public class UserServiceImpl implements UserService{
     private UserDao userDao;
 
 
+//    @Override
+//    public List<UserListRecipeDto> getAllUsers() {
+//        return userDao.findAll();
+//    }
+
+
     @Override
-    public List<User> getAllUsers() {
-        return userDao.findAll();
+    public List<UserListRecipeDto> getAllUsers() {
+        final List<User>userDaoAll =userDao.findAll();
+        final List<UserListRecipeDto> collect = userDaoAll.stream()
+                .map(user -> {
+                    UserListRecipeDto userListRecipeDto  = new UserListRecipeDto();
+                    userListRecipeDto.setId(user.getId());
+                    userListRecipeDto.setPhoto(user.getPhoto());
+                    userListRecipeDto.setActivityType(user.getActivityType());
+                    userListRecipeDto.setName(user.getName());
+                    userListRecipeDto.setLastName(user.getLastName());
+                    userListRecipeDto.setSex(user.getSex());
+
+                    final List<Integer> idRecipe = user.getRecipes().stream()
+                            .map(Recipe::getId)
+                            .collect(Collectors.toList());
+                    userListRecipeDto.setRecipes(idRecipe);
+                    return userListRecipeDto;
+                }).collect(Collectors.toList());
+        return collect;
     }
 
     @Override

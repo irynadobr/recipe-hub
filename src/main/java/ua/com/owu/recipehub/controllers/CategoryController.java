@@ -3,6 +3,7 @@ package ua.com.owu.recipehub.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ua.com.owu.recipehub.dto.CategoryListRecipeDto;
 import ua.com.owu.recipehub.models.Category;
 import ua.com.owu.recipehub.models.Recipe;
 import ua.com.owu.recipehub.service.category.CategoryService;
@@ -17,8 +18,13 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping(value = "")
-    public List<Category> getCategories() {
+//    @GetMapping(value = "")
+//    public List<Category> getCategories() {
+//        return categoryService.getALLCategories();
+//    }
+
+        @GetMapping(value = "")
+    public List<CategoryListRecipeDto> getCategories() {
         return categoryService.getALLCategories();
     }
 

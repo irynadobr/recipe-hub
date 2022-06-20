@@ -1,14 +1,14 @@
 package ua.com.owu.recipehub.service.category;
 
+import ua.com.owu.recipehub.dto.CategoryListRecipeDto;
 import ua.com.owu.recipehub.models.Category;
-import ua.com.owu.recipehub.models.Recipe;
 
 import java.util.List;
 
 public interface CategoryService {
 
 
-    List<Category> getALLCategories();
+    List<CategoryListRecipeDto> getALLCategories();
 
     Category getCategory(int id);
 

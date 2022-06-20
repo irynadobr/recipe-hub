@@ -23,7 +23,7 @@ public class User {
     private int weight;
     private int height;
     private int age;
-    private String gender;
+    private Sex sex;
     private String activityType;
     private String name;
     private String lastName;

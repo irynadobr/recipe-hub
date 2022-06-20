@@ -5,12 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ua.com.owu.recipehub.dao.CategoryDao;
-import ua.com.owu.recipehub.dao.IngredientDao;
+import ua.com.owu.recipehub.dto.CategoryListRecipeDto;
 import ua.com.owu.recipehub.models.Category;
 import ua.com.owu.recipehub.models.Recipe;
-import ua.com.owu.recipehub.service.IngredientService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -19,8 +19,20 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public List<Category> getALLCategories() {
-        return categoryDao.findAll();
+    public List<CategoryListRecipeDto> getALLCategories() {
+        final List<Category>categoryDaoAll =categoryDao.findAll();
+        final List<CategoryListRecipeDto> collect = categoryDaoAll.stream()
+                .map(category -> {
+                    CategoryListRecipeDto categoryListRecipeDto  = new CategoryListRecipeDto();
+                    categoryListRecipeDto.setId(category.getId());
+                    categoryListRecipeDto.setCategory(category.getCategory());
+                    final List<Integer> idRecipe = category.getRecipes().stream()
+                            .map(Recipe::getId)
+                            .collect(Collectors.toList());
+                    categoryListRecipeDto.setRecipes(idRecipe);
+                   return categoryListRecipeDto;
+                }).collect(Collectors.toList());
+        return collect;
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class RecipePage {
-    private List<Recipe> recipes;
+    private List<RecipeDto> recipes;
     private int totalPage;
     private long totalElements;
     private int currentPage;

@@ -14,6 +14,7 @@ import ua.com.owu.recipehub.service.category.CategoryService;
 import ua.com.owu.recipehub.service.user.UserService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeServiceImpl implements RecipeService{
@@ -32,14 +33,24 @@ public class RecipeServiceImpl implements RecipeService{
 //    }
 @Override
 public RecipePage getALLRecipes(int page, int size) {
-  final Page<Recipe> recipes = recipeDao.findAll( PageRequest.of(page, size)) ;
-  final RecipePage recipePage = new RecipePage();
- recipePage.setRecipes(recipes.getContent());
- recipePage.setCurrentPage(recipes.getNumber());
- recipePage.setLast(recipes.isLast());
+    final Page<Recipe> recipes = recipeDao.findAll(PageRequest.of(page, size));
+    final RecipePage recipePage = new RecipePage();
+    final List<Recipe>content = recipes.getContent();
+    recipePage.setRecipes(content.stream().map(recipe -> {
+        RecipeDto recipeDto= new RecipeDto();
+        recipeDto.setId(recipe.getId());
+        recipeDto.setImage(recipe.getImage());
+        recipeDto.setTitle(recipe.getTitle());
+        recipeDto.setAuthorId(recipe.getAuthor().getId());
+        recipeDto.setCategoryId(recipe.getCategory().getId());
+        recipeDto.setRating(recipe.getRating());
+        return recipeDto;
+    }).collect(Collectors.toList()));
+    recipePage.setCurrentPage(recipes.getNumber());
+    recipePage.setLast(recipes.isLast());
     recipePage.setTotalPage(recipes.getTotalPages());
- recipePage.setTotalElements(recipes.getTotalElements());
-     return recipePage;
+    recipePage.setTotalElements(recipes.getTotalElements());
+    return recipePage;
 }
 
     @Override

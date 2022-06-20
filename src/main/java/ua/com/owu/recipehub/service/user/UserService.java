@@ -1,13 +1,14 @@
 package ua.com.owu.recipehub.service.user;
 
+import ua.com.owu.recipehub.dto.UserListRecipeDto;
 import ua.com.owu.recipehub.models.User;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> getAllUsers();
+    List<UserListRecipeDto> getAllUsers();
 
-    User getUser(int id);
+      User getUser(int id);
 
     User createUser(User user);
 

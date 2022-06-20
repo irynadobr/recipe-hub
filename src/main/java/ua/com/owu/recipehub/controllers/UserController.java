@@ -3,6 +3,7 @@ package ua.com.owu.recipehub.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ua.com.owu.recipehub.dto.UserListRecipeDto;
 import ua.com.owu.recipehub.models.Ingredient;
 import ua.com.owu.recipehub.models.User;
 import ua.com.owu.recipehub.service.IngredientService;
@@ -17,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "")
-    public List<User> getUsers() {
+    public List<UserListRecipeDto> getUsers() {
         return userService.getAllUsers();
     }
 
