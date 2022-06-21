@@ -1,12 +1,15 @@
 
 package ua.com.owu.recipehub.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @AllArgsConstructor
 @Data
@@ -17,39 +20,42 @@ public class Ingredient {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
   @NotBlank
-     private String type_ukr;
-     private String name_ukr;
+     private String typeUkr;
+     private String nameUkr;
      private String type;
      private String name;
+     @ManyToMany(targetEntity = Recipe.class)
+     @JsonIgnore
+     private List<Recipe> recipes;
      private int weight;
      private int calories;
-     private double total_protein;
-     private double total_fat;
-     private double saturated_fatty_acids;
-     private double monounsaturated_fatty_acids;
-     private double polyunsaturated_fatty_acids;
+     private double totalProtein;
+     private double totalFat;
+     private double saturatedFattyAcids;
+     private double monounsaturatedFattyAcids;
+     private double polyunsaturatedFattyAcids;
      private double carbohydrate;
      private double fiber;
      private double sugars;
-     private int vitamin_a;
-     private int thiamin_vitamin_b1;
-     private int riboflavin_vitamin_b2;
-     private int niacin_vitamin_b3;
-     private int choline_vitamin_b4;
-     private int pantothenic_acid_vitamin_b5;
-     private int vitamin_b6;
-     private int folic_acid_vitamin_b5;
-     private double vitamin_b12_cobalamin;
-     private int vitamin_d;
-     private int vitamin_e_alpha_tocopherol;
-     private double vitamin_k;
-     private int vitamin_c_ascorbic_acid;
+     private int vitaminA;
+     private int thiaminVitaminB1;
+     private int riboflavinVitaminB2;
+     private int niacinVitaminB3;
+     private int cholineVitaminB4;
+     private int pantothenicAcidVitaminB5;
+     private int vitaminB6;
+     private int folicAcidVitaminB5;
+     private double vitaminB12Cobalamin;
+     private int vitaminD;
+     private int vitaminEAlphaTocopherol;
+     private double vitaminK;
+     private int vitaminCAscorbicAcid;
      private int cholesterol;
      private int sodium;
      private int potassium;
      private int calcium;
      private double copper;
-     private int phosphorus_p;
+     private int phosphorusP;
      private int magnesium;
      private double iron;
      private double zinc;

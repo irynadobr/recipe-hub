@@ -20,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryListRecipeDto> getALLCategories() {
-        final List<Category>categoryDaoAll =categoryDao.findAll();
+        final List<Category>categoryDaoAll =categoryDao.myFindAll();
         final List<CategoryListRecipeDto> collect = categoryDaoAll.stream()
                 .map(category -> {
                     CategoryListRecipeDto categoryListRecipeDto  = new CategoryListRecipeDto();

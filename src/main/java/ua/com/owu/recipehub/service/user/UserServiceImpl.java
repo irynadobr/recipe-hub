@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<UserListRecipeDto> getAllUsers() {
-        final List<User>userDaoAll =userDao.findAll();
+        final List<User>userDaoAll =userDao.myFindAllUser();
         final List<UserListRecipeDto> collect = userDaoAll.stream()
                 .map(user -> {
                     UserListRecipeDto userListRecipeDto  = new UserListRecipeDto();

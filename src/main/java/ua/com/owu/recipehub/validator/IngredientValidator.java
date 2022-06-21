@@ -16,8 +16,8 @@ public class IngredientValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
 Ingredient ingredient = (Ingredient) target;
-if (StringUtils.isNotBlank(ingredient.getType_ukr()) && !CharUtils.isAsciiAlphaUpper(ingredient.getType_ukr().charAt(0))){
-    errors.rejectValue("type_ukr", "ingredient.type_ukr.capital-letter", "ingredient type_ukr should start with capital letter");
+if (StringUtils.isNotBlank(ingredient.getTypeUkr()) && !CharUtils.isAsciiAlphaUpper(ingredient.getTypeUkr().charAt(0))){
+    errors.rejectValue("typeUkr", "ingredient.typeUkr.capital-letter", "ingredient typeUkr should start with capital letter");
 }
     }
 }

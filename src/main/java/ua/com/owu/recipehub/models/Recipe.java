@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @Data
@@ -24,7 +25,11 @@ public class Recipe {
     private User author;
     private String description;
     @ManyToOne(targetEntity = Category.class)
-    @JsonIgnore
+
     private Category category;
-   private double rating;
+    @ManyToMany(targetEntity = Ingredient.class)
+    @JoinTable(name = "recipeIngredient",joinColumns = @JoinColumn(name = "recipe_id"),inverseJoinColumns = @JoinColumn(name="ingredient_id"))
+    @JsonIgnore
+    private List<Ingredient> ingredients;
+    private double rating;
 }
