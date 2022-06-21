@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class CategoryListRecipeDto  {
-    private int id;
+    private int idCategory;
     private String category;
     private List<Integer> recipes;
 }

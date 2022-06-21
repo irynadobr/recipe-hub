@@ -10,11 +10,10 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class IngredientListRecipeDto {
+    private int idIngredient;
     private String typeUkr;
     private String nameUkr;
-    private String type;
-    private String name;
     private int weight;
     private int calories;
-    private List<Integer> recipeId;
+    private List<Integer> recipes;
 }

@@ -1,5 +1,6 @@
 package ua.com.owu.recipehub.service;
 
+import ua.com.owu.recipehub.dto.IngredientListRecipeDto;
 import ua.com.owu.recipehub.models.Ingredient;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface IngredientService {
     Ingredient updateIngredient(int id, Ingredient ingredient);
 
 
-    List<Ingredient> getAllIngredient();
+    List<IngredientListRecipeDto> getAllIngredient();
 
     void deleteIngredient(int id);
 

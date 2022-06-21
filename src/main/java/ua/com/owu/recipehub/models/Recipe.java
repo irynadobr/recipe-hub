@@ -25,7 +25,7 @@ public class Recipe {
     private User author;
     private String description;
     @ManyToOne(targetEntity = Category.class)
-
+    @JsonIgnore
     private Category category;
     @ManyToMany(targetEntity = Ingredient.class)
     @JoinTable(name = "recipeIngredient",joinColumns = @JoinColumn(name = "recipe_id"),inverseJoinColumns = @JoinColumn(name="ingredient_id"))

@@ -53,6 +53,7 @@ public class CategoryController {
 @GetMapping(value = "")
 public List<CategoryListRecipeDto> getCategories() {
     return categoryService.getALLCategories();
+
 }
 
     @GetMapping(value = "/{id}")

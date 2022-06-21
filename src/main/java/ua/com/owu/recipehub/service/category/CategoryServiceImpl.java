@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
         final List<CategoryListRecipeDto> collect = categoryDaoAll.stream()
                 .map(category -> {
                     CategoryListRecipeDto categoryListRecipeDto  = new CategoryListRecipeDto();
-                    categoryListRecipeDto.setId(category.getId());
+                    categoryListRecipeDto.setIdCategory(category.getId());
                     categoryListRecipeDto.setCategory(category.getCategory());
                     final List<Integer> idRecipe = category.getRecipes().stream()
                             .map(Recipe::getId)

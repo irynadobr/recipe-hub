@@ -24,7 +24,7 @@ public class User {
     private int height;
     private int age;
     private Sex sex;
-    private String activityType;
+    private ActivityType activityType;
     private String name;
     private String lastName;
     private String dateOfRegistration;

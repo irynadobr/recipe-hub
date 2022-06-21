@@ -3,6 +3,7 @@ package ua.com.owu.recipehub.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ua.com.owu.recipehub.models.ActivityType;
 import ua.com.owu.recipehub.models.Sex;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class UserListRecipeDto {
     private int id;
     private String photo;
-    private String activityType;
+    private ActivityType activityType;
     private String name;
     private String lastName;
     private Sex sex;

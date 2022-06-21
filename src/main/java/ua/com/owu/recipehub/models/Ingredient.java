@@ -24,7 +24,7 @@ public class Ingredient {
      private String nameUkr;
      private String type;
      private String name;
-     @ManyToMany(targetEntity = Recipe.class)
+     @ManyToMany(mappedBy = "ingredients")
      @JsonIgnore
      private List<Recipe> recipes;
      private int weight;

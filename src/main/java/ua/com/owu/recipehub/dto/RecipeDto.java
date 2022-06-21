@@ -13,6 +13,6 @@ public class RecipeDto {
     private String title;
     private int authorId;
     private int categoryId;
-    private List <Integer> ingredientId;
+    private List <Integer> ingredients;
     private double rating;
 }

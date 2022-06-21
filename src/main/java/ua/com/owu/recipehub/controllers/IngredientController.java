@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import ua.com.owu.recipehub.dto.IngredientListRecipeDto;
 import ua.com.owu.recipehub.models.Ingredient;
 import ua.com.owu.recipehub.service.IngredientService;
 import ua.com.owu.recipehub.validator.IngredientValidator;
@@ -20,8 +21,15 @@ public class IngredientController {
 
     @Autowired
     private IngredientValidator ingredientValidator;
+
+
+//    @GetMapping(value = "")
+//    public List<Ingredient> getIngredient() {
+//        return ingredientService.getAllIngredient();
+//    }
+
     @GetMapping(value = "")
-    public List<Ingredient> getIngredient() {
+    public List<IngredientListRecipeDto> getIngredient() {
         return ingredientService.getAllIngredient();
     }
 

@@ -7,8 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ua.com.owu.recipehub.dao.RecipeDao;
+import ua.com.owu.recipehub.dto.CategoryListRecipeDto;
+import ua.com.owu.recipehub.dto.IngredientListRecipeDto;
 import ua.com.owu.recipehub.dto.RecipeDto;
 import ua.com.owu.recipehub.dto.RecipePage;
+import ua.com.owu.recipehub.models.Ingredient;
 import ua.com.owu.recipehub.models.Recipe;
 import ua.com.owu.recipehub.service.category.CategoryService;
 import ua.com.owu.recipehub.service.user.UserService;
@@ -43,6 +46,13 @@ public RecipePage getALLRecipes(int page, int size) {
         recipeDto.setTitle(recipe.getTitle());
         recipeDto.setAuthorId(recipe.getAuthor().getId());
         recipeDto.setCategoryId(recipe.getCategory().getId());
+
+        final List<Integer> idIngredient = recipe.getIngredients().stream()
+                .map(Ingredient::getId)
+                .collect(Collectors.toList());
+        recipeDto.setIngredients(idIngredient);
+
+
         recipeDto.setRating(recipe.getRating());
         return recipeDto;
     }).collect(Collectors.toList()));
