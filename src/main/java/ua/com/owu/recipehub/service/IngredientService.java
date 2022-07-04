@@ -1,5 +1,6 @@
 package ua.com.owu.recipehub.service;
 
+import ua.com.owu.recipehub.dto.IngredientListNutrientsDto;
 import ua.com.owu.recipehub.dto.IngredientListRecipeDto;
 import ua.com.owu.recipehub.models.Ingredient;
 
@@ -17,4 +18,6 @@ public interface IngredientService {
     void deleteIngredient(int id);
 
     Ingredient getIngredient(int id);
+
+    List<IngredientListNutrientsDto> getAllIngredientWeightNutrientQuantity();
 }

@@ -1,10 +1,12 @@
 package ua.com.owu.recipehub.controllers;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import ua.com.owu.recipehub.dto.IngredientListNutrientsDto;
 import ua.com.owu.recipehub.dto.IngredientListRecipeDto;
 import ua.com.owu.recipehub.models.Ingredient;
 import ua.com.owu.recipehub.service.IngredientService;
@@ -12,9 +14,10 @@ import ua.com.owu.recipehub.validator.IngredientValidator;
 
 import javax.validation.Valid;
 import java.util.List;
-
+@AllArgsConstructor
 @RestController
 @RequestMapping("/ingredient")
+
 public class IngredientController {
     @Autowired
     private IngredientService ingredientService;
@@ -31,6 +34,11 @@ public class IngredientController {
     @GetMapping(value = "")
     public List<IngredientListRecipeDto> getIngredient() {
         return ingredientService.getAllIngredient();
+    }
+
+    @GetMapping(value = "/weight")
+    public List<IngredientListNutrientsDto> getIngredientWeightNutrientQuantity() {
+        return ingredientService.getAllIngredientWeightNutrientQuantity();
     }
 
     @GetMapping(value = "/{id}")

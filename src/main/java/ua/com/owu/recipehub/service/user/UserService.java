@@ -17,4 +17,5 @@ public interface UserService {
     User updateUser(int id, User user);
 
 
+    UserListRecipeDto getUserDto(int id);
 }

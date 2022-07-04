@@ -1,28 +1,25 @@
 package ua.com.owu.recipehub.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jdk.nashorn.internal.ir.annotations.Ignore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import ua.com.owu.recipehub.dto.CategoryListRecipeDto;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
-public class Category {
+public class CategoryRecipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int id;
-    private String category;
+    private String nameCategoryRecipe;
     @OneToMany (targetEntity =Recipe.class)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_recipe_id")
     @JsonIgnore
     private List <Recipe> recipes;
 

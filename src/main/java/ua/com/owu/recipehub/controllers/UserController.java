@@ -1,5 +1,6 @@
 package ua.com.owu.recipehub.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@AllArgsConstructor
 public class UserController {
     @Autowired
     private UserService userService;
@@ -26,7 +28,10 @@ public class UserController {
     public User getByIdUser(@PathVariable int id){
         return userService.getUser(id);
     }
-
+    @GetMapping(value = "/dto/{id}")
+    public UserListRecipeDto getByIdUserDto(@PathVariable int id){
+        return userService.getUserDto(id);
+    }
 
     @PostMapping(value = "")
     @ResponseStatus(HttpStatus.CREATED)

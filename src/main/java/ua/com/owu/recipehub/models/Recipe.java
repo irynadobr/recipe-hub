@@ -1,35 +1,52 @@
 package ua.com.owu.recipehub.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jdk.nashorn.internal.ir.annotations.Ignore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
-public class Recipe {
+public class Recipe  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int id;
-    private String image;
-    private String title;
+    private String imageRecipe;
+    private String titleRecipe;
     @ManyToOne(targetEntity = User.class)
     @JsonIgnore
-    private User author;
-    private String description;
-    @ManyToOne(targetEntity = Category.class)
+    private User authorRecipe;
+    private String descriptionRecipe;
+//    @ManyToOne(cascade = CascadeType.ALL,  targetEntity = CategoryRecipe.class)
+    @ManyToOne(targetEntity = CategoryRecipe.class)
     @JsonIgnore
-    private Category category;
-    @ManyToMany(targetEntity = Ingredient.class)
+    private CategoryRecipe categoryRecipe;
+    @ManyToMany(cascade = CascadeType.ALL, targetEntity = Ingredient.class)
     @JoinTable(name = "recipeIngredient",joinColumns = @JoinColumn(name = "recipe_id"),inverseJoinColumns = @JoinColumn(name="ingredient_id"))
     @JsonIgnore
     private List<Ingredient> ingredients;
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WeightIngredient> weightIngredients;
     private double rating;
+
+    public Recipe(String imageRecipe, String titleRecipe, User authorRecipe, String descriptionRecipe,  CategoryRecipe categoryRecipe, List<Ingredient>ingredients, List<WeightIngredient>weightIngredients, double rating) {
+        this.imageRecipe = imageRecipe;
+        this.titleRecipe = titleRecipe;
+        this.authorRecipe = authorRecipe;
+        this.descriptionRecipe=descriptionRecipe;
+
+        this.categoryRecipe = categoryRecipe;
+      this.ingredients=ingredients;
+      this.weightIngredients=weightIngredients;
+      this.rating=rating;
+
+
+    }
+
 }

@@ -1,22 +1,22 @@
 package ua.com.owu.recipehub.models;
 
-public enum ActivityType {
+public enum ActivityTypeUser {
 
 
     FirstType("FirstType"),
     SecondType("SecondType"),
     ThirdType("ThirdType"),
-    fourthType("fourthType"),
+    fourthType("FourthType"),
     FifthType("FifthType");
 
 
 
 
     String x;
-    ActivityType()  {
+    ActivityTypeUser()  {
 
     }
-    ActivityType(String x) {
+    ActivityTypeUser(String x) {
         this.x =x;
     }
 

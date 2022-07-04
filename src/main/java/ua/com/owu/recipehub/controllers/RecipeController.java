@@ -1,7 +1,7 @@
 package ua.com.owu.recipehub.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ua.com.owu.recipehub.dto.RecipeDto;
@@ -9,10 +9,9 @@ import ua.com.owu.recipehub.dto.RecipePage;
 import ua.com.owu.recipehub.models.Recipe;
 import ua.com.owu.recipehub.service.recipe.RecipeService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/recipe")
+@AllArgsConstructor
 public class RecipeController {
     @Autowired
     private RecipeService recipeService;
@@ -23,7 +22,7 @@ public class RecipeController {
     }
 
     @GetMapping(value = "/{id}")
-    public Recipe getByIdRecipe(@PathVariable int id){
+    public RecipeDto getByIdRecipe(@PathVariable int id){
         return recipeService.getRecipe(id);
     }
 

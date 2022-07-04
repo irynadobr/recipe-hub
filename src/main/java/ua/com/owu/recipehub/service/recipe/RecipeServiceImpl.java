@@ -1,5 +1,6 @@
 package ua.com.owu.recipehub.service.recipe;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -7,27 +8,31 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ua.com.owu.recipehub.dao.RecipeDao;
-import ua.com.owu.recipehub.dto.CategoryListRecipeDto;
-import ua.com.owu.recipehub.dto.IngredientListRecipeDto;
-import ua.com.owu.recipehub.dto.RecipeDto;
-import ua.com.owu.recipehub.dto.RecipePage;
+import ua.com.owu.recipehub.dto.*;
 import ua.com.owu.recipehub.models.Ingredient;
 import ua.com.owu.recipehub.models.Recipe;
-import ua.com.owu.recipehub.service.category.CategoryService;
+import ua.com.owu.recipehub.models.User;
+import ua.com.owu.recipehub.models.WeightIngredient;
+import ua.com.owu.recipehub.service.IngredientService;
+import ua.com.owu.recipehub.service.categoryRecipe.CategoryRecipeService;
 import ua.com.owu.recipehub.service.user.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class RecipeServiceImpl implements RecipeService{
     @Autowired
     private RecipeDao recipeDao;
 
     @Autowired
-    private CategoryService categoryService;
+    private CategoryRecipeService categoryRecipeService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private IngredientService ingredientService;
 
 
 //    @Override
@@ -41,19 +46,21 @@ public RecipePage getALLRecipes(int page, int size) {
     final List<Recipe>content = recipes.getContent();
     recipePage.setRecipes(content.stream().map(recipe -> {
         RecipeDto recipeDto= new RecipeDto();
-        recipeDto.setId(recipe.getId());
-        recipeDto.setImage(recipe.getImage());
-        recipeDto.setTitle(recipe.getTitle());
-        recipeDto.setAuthorId(recipe.getAuthor().getId());
-        recipeDto.setCategoryId(recipe.getCategory().getId());
+        recipeDto.setIdRecipe(recipe.getId());
+        recipeDto.setImageRecipe(recipe.getImageRecipe());
+        recipeDto.setTitleRecipe(recipe.getTitleRecipe());
+        recipeDto.setIdAuthorRecipe(recipe.getAuthorRecipe().getIdUser());
+        recipeDto.setDescriptionRecipe(recipe.getDescriptionRecipe());
+        recipeDto.setIdCategoryRecipe(recipe.getCategoryRecipe().getId());
+        final List<RecipeListIngredientDto> ingredientWithRecipe=  recipe.getWeightIngredients()
+                .stream()
+                                .map(x->new RecipeListIngredientDto(x.getIngredient().getId(),
+                                        x.getIngredient().getNameIngredientUkr(),
+                                        x.getWeightIngredient()))
+                                .collect(Collectors.toList());
+      recipeDto.setIngredients(ingredientWithRecipe);
 
-        final List<Integer> idIngredient = recipe.getIngredients().stream()
-                .map(Ingredient::getId)
-                .collect(Collectors.toList());
-        recipeDto.setIngredients(idIngredient);
-
-
-        recipeDto.setRating(recipe.getRating());
+             recipeDto.setRating(recipe.getRating());
         return recipeDto;
     }).collect(Collectors.toList()));
     recipePage.setCurrentPage(recipes.getNumber());
@@ -64,28 +71,79 @@ public RecipePage getALLRecipes(int page, int size) {
 }
 
     @Override
-    public Recipe getRecipe(int id) {
-        return recipeDao.findById(id).orElseThrow(() ->new RuntimeException());
+    public RecipeDto getRecipe(int id) {
+        final Recipe recipeDaoId=recipeDao.findById(id)
+
+                .orElseThrow(() ->new RuntimeException());
+
+        RecipeDto recipeDto = new RecipeDto();
+        recipeDto.setIdRecipe(recipeDaoId.getId());
+        recipeDto.setImageRecipe(recipeDaoId.getImageRecipe());
+        recipeDto.setTitleRecipe(recipeDaoId.getTitleRecipe());
+        recipeDto.setIdAuthorRecipe(recipeDaoId.getAuthorRecipe().getIdUser());
+        recipeDto.setDescriptionRecipe(recipeDaoId.getDescriptionRecipe());
+        recipeDto.setIdCategoryRecipe(recipeDaoId.getCategoryRecipe().getId());
+
+        final List<RecipeListIngredientDto> ingredientWithRecipe=  recipeDaoId.getWeightIngredients()
+                .stream()
+                .map(x->new RecipeListIngredientDto(x.getIngredient().getId(),
+                        x.getIngredient().getNameIngredientUkr(),
+                        x.getWeightIngredient()))
+                .collect(Collectors.toList());
+
+        recipeDto.setIngredients(ingredientWithRecipe);
+        recipeDto.setRating(recipeDaoId.getRating());
+
+        return recipeDto;
     }
 
+
 //    @Override
-//    public RecipeDto createRecipe(RecipeDto recipe) {
-//        return recipeDao.saveAndFlush(recipe);
-//    }
+//    public Recipe getRecipe(int id) {
+//        return recipeDao.findById(id).orElseThrow(() ->new RuntimeException());
+   // }
 
     @Override
     public RecipeDto createRecipe(RecipeDto recipe) {
-        Recipe recipeDB = new Recipe();
-        recipeDB.setTitle(recipe.getTitle());
-        recipeDB.setImage(recipe.getImage());
-        recipeDB.setCategory(categoryService.getCategory(recipe.getCategoryId()));
-        recipeDB.setAuthor(userService.getUser(recipe.getAuthorId()));
-        recipeDB.setRating(recipe.getRating());
-        recipeDao.saveAndFlush(recipeDB);
-        recipe.setId(recipeDB.getId());
+List<WeightIngredient> weightIngredients =new ArrayList<>();
+  Recipe recipeCreate = new Recipe();
+         recipeCreate.setTitleRecipe(recipe.getTitleRecipe());
+         recipeCreate.setImageRecipe(recipe.getImageRecipe());
+         recipeCreate.setDescriptionRecipe(recipe.getDescriptionRecipe());
+        recipeCreate.setTitleRecipe(recipe.getTitleRecipe());
+        recipeCreate.setRating(recipe.getRating());
+         recipeCreate.setAuthorRecipe(userService.getUser(recipe.getIdAuthorRecipe()));
+         recipeCreate.setCategoryRecipe(categoryRecipeService.getCategoryRecipe(recipe.getIdCategoryRecipe()));
+          recipeCreate.setWeightIngredients(weightIngredients);
 
-        return recipe;
+
+       List<Ingredient>ingredintsCreate=new ArrayList<>();
+
+        recipe.getIngredients()
+        .stream()
+        .forEach(x-> {
+                    Ingredient ingredient = ingredientService.getIngredient(x.getIngredientId());
+                    ingredintsCreate.add(ingredient);
+
+
+                     recipeCreate.getWeightIngredients().add(new WeightIngredient(recipeCreate,ingredient,x.getWeightIngredient()));
+
+                      });
+         recipeCreate.setIngredients(ingredintsCreate);
+
+
+        recipeDao.saveAndFlush(recipeCreate);
+
+        recipe.setIdRecipe(recipeCreate.getId());
+
+
+
+   return recipe;
+
     }
+
+
+
 
     @Override
     public Recipe updateRecipe(int id, Recipe recipe) {
