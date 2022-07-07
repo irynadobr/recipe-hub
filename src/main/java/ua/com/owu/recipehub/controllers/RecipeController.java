@@ -17,12 +17,12 @@ public class RecipeController {
     private RecipeService recipeService;
 
     @GetMapping(value = "")
-    public RecipePage getRecipes(@RequestParam (defaultValue = "0") int page, @RequestParam (defaultValue = "10") int size) {
-        return recipeService.getALLRecipes(page,size);
+    public RecipePage getRecipes(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return recipeService.getALLRecipes(page, size);
     }
 
     @GetMapping(value = "/{id}")
-    public RecipeDto getByIdRecipe(@PathVariable int id){
+    public RecipeDto getByIdRecipe(@PathVariable int id) {
         return recipeService.getRecipe(id);
     }
 
@@ -40,7 +40,7 @@ public class RecipeController {
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Recipe updateRecipe(@PathVariable int id, @RequestBody Recipe recipe) {
+    public RecipeDto updateRecipe(@PathVariable int id, @RequestBody RecipeDto recipe) {
         return recipeService.updateRecipe(id, recipe);
     }
 

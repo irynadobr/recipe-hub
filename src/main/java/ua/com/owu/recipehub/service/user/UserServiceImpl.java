@@ -47,14 +47,14 @@ public class UserServiceImpl implements UserService{
         return collect;
     }
 
-    @Override
-    public User getUser(int id) {
+//    @Override
+//    public User getUser(int id) {
+//
+//        return userDao.findById(id).orElseThrow(() ->new RuntimeException());
+//    }
 
-        return userDao.findById(id).orElseThrow(() ->new RuntimeException());
 
 
-
-    }
 //    @Override
 //    public UserListRecipeDto getUser(int id) {
 //
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserListRecipeDto getUserDto(int id) {
+    public UserListRecipeDto getUser(int id) {
         final User userDaoId=userDao.findById(id)
 
                 .orElseThrow(() ->new RuntimeException());

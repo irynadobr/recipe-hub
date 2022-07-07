@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import ua.com.owu.recipehub.models.Recipe;
 
 import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

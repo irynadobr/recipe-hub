@@ -7,7 +7,6 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ua.com.owu.recipehub.models.Recipe;
 
-public interface RecipeDao extends JpaRepository <Recipe, Integer> {
-
+public interface RecipeDao extends JpaRepository<Recipe, Integer> {
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserService {
     List<UserListRecipeDto> getAllUsers();
 
-      User getUser(int id);
+//    User getUser(int id);
 
     User createUser(User user);
 
@@ -17,5 +17,5 @@ public interface UserService {
     User updateUser(int id, User user);
 
 
-    UserListRecipeDto getUserDto(int id);
+    UserListRecipeDto getUser(int id);
 }

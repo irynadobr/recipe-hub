@@ -20,24 +20,24 @@ public class CategoryRecipeServiceImpl implements CategoryRecipeService {
 
     @Override
     public List<CategoryListRecipeDto> getALLCategoriesRecipes() {
-        final List<CategoryRecipe>categoryRecipeDaoAll =categoryRecipeDao.findAll();
+        final List<CategoryRecipe> categoryRecipeDaoAll = categoryRecipeDao.findAll();
         final List<CategoryListRecipeDto> collect = categoryRecipeDaoAll.stream()
                 .map(categoryRecipe -> {
-                    CategoryListRecipeDto categoryListRecipeDto  = new CategoryListRecipeDto();
+                    CategoryListRecipeDto categoryListRecipeDto = new CategoryListRecipeDto();
                     categoryListRecipeDto.setIdCategoryRecipe(categoryRecipe.getId());
                     categoryListRecipeDto.setNameCategoryRecipe(categoryRecipe.getNameCategoryRecipe());
                     final List<Integer> idRecipe = categoryRecipe.getRecipes().stream()
                             .map(Recipe::getId)
                             .collect(Collectors.toList());
                     categoryListRecipeDto.setRecipes(idRecipe);
-                   return categoryListRecipeDto;
+                    return categoryListRecipeDto;
                 }).collect(Collectors.toList());
         return collect;
     }
 
     @Override
     public CategoryRecipe getCategoryRecipe(int id) {
-        return  categoryRecipeDao.findById(id).orElseThrow(() ->new RuntimeException());
+        return categoryRecipeDao.findById(id).orElseThrow(() -> new RuntimeException());
 
     }
 

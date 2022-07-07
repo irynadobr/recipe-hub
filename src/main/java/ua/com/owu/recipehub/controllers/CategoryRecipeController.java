@@ -22,7 +22,7 @@ public class CategoryRecipeController {
 //        return categoryService.getALLCategories();
 //    }
 
-//        @GetMapping(value = "")
+    //        @GetMapping(value = "")
 //    public List<CategoryListRecipeDto> getCategories() {
 //        return categoryService.getALLCategories();
 //    }
@@ -49,14 +49,14 @@ public class CategoryRecipeController {
 //    public void deleteCategory(@PathVariable int id) {
 //        categoryService.deleteCategory(id);
 //    }
-@GetMapping(value = "")
-public List<CategoryListRecipeDto> getCategoriesRecipes() {
-    return categoryRecipeService.getALLCategoriesRecipes();
+    @GetMapping(value = "")
+    public List<CategoryListRecipeDto> getCategoriesRecipes() {
+        return categoryRecipeService.getALLCategoriesRecipes();
 
-}
+    }
 
     @GetMapping(value = "/{id}")
-    public CategoryRecipe getByIdCategoryRecipe(@PathVariable int id){
+    public CategoryRecipe getByIdCategoryRecipe(@PathVariable int id) {
         return categoryRecipeService.getCategoryRecipe(id);
     }
 

@@ -24,7 +24,7 @@ public class User {
     private int idUser;
     private String loginUser;
     private String passwordUser;
-//    @Lob
+    //    @Lob
 //    private Byte [] photoUser;тип в таблиці blob
     private String photoUser;
     private String emailUser;
@@ -41,17 +41,16 @@ public class User {
 //    @JsonFormat(pattern = "dd-MM-yyyy")
 //    private LocalDate dateOfRegistrationUser;
 
-private String dateOfRegistrationUser;
+    private String dateOfRegistrationUser;
     @OneToMany(targetEntity = Recipe.class)
     @JoinColumn(name = "author_recipe_id_user")
     @JsonIgnore
     private List<Recipe> recipes;
 
-public User(UserListRecipeDto userListRecipeDto) {
-    this.idUser=userListRecipeDto.getIdUser();
+    public User(UserListRecipeDto userListRecipeDto) {
+        this.idUser = userListRecipeDto.getIdUser();
 
 
-
-}
+    }
 
 }

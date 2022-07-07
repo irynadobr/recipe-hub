@@ -25,13 +25,14 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public User getByIdUser(@PathVariable int id){
+    public UserListRecipeDto getByIdUser(@PathVariable int id) {
         return userService.getUser(id);
     }
-    @GetMapping(value = "/dto/{id}")
-    public UserListRecipeDto getByIdUserDto(@PathVariable int id){
-        return userService.getUserDto(id);
-    }
+
+//    @GetMapping(value = "/dto/{id}")
+//    public UserListRecipeDto getByIdUserDto(@PathVariable int id) {
+//        return userService.getUserDto(id);
+//    }
 
     @PostMapping(value = "")
     @ResponseStatus(HttpStatus.CREATED)

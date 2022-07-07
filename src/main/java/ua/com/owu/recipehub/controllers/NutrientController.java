@@ -27,7 +27,7 @@ public class NutrientController {
     }
 
     @GetMapping(value = "/{id}")
-    public Nutrient getById(@PathVariable int id){
+    public Nutrient getById(@PathVariable int id) {
         return nutrientService.getNutrient(id);
     }
 
@@ -48,8 +48,6 @@ public class NutrientController {
     public void deleteNutrient(@PathVariable int id) {
         nutrientService.deleteNutrient(id);
     }
-
-
 
 
 }

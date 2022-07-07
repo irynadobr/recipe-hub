@@ -18,9 +18,9 @@ public class CategoryRecipe {
 
     private int id;
     private String nameCategoryRecipe;
-    @OneToMany (targetEntity =Recipe.class)
+    @OneToMany(targetEntity = Recipe.class)
     @JoinColumn(name = "category_recipe_id")
     @JsonIgnore
-    private List <Recipe> recipes;
+    private List<Recipe> recipes;
 
 }

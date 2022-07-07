@@ -2,13 +2,12 @@ package ua.com.owu.recipehub.service.recipe;
 
 import ua.com.owu.recipehub.dto.RecipeDto;
 import ua.com.owu.recipehub.dto.RecipePage;
-import ua.com.owu.recipehub.models.Recipe;
 
 public interface RecipeService {
     RecipeDto createRecipe(RecipeDto recipe);
 
 
-    Recipe updateRecipe(int id, Recipe recipe);
+    RecipeDto updateRecipe(int id, RecipeDto recipe);
 
     void deleteRecipe(int id);
 

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.MapsId;
 import java.io.Serializable;
 
 @Embeddable
@@ -15,4 +16,10 @@ public class IdRecipeIngredient implements Serializable {
 
     private int recipe_id;
     private int ingredient_id;
+
+
+//    public void setRecipeId(IdRecipeIngredient idRecipeIngredient) {
+//
+//        this.recipe_id = idRecipeIngredient.getRecipe_id();
+//    }
 }

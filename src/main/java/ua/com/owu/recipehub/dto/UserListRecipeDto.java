@@ -24,13 +24,13 @@ public class UserListRecipeDto {
     private Sex sex;
     private List<Integer> recipes;
 
-    public UserListRecipeDto (User user) {
-        this.idUser=user.getIdUser();
-        this.photoUser=user.getPhotoUser();
-        this.activityTypeUser=user.getActivityTypeUser();
-        this.nameUser=user.getNameUser();
-        this.lastNameUser=user.getLastNameUser();
-        this.sex=user.getSex();
-        this.recipes=user.getRecipes().stream().map(Recipe::getId).collect(Collectors.toList());
+    public UserListRecipeDto(User user) {
+        this.idUser = user.getIdUser();
+        this.photoUser = user.getPhotoUser();
+        this.activityTypeUser = user.getActivityTypeUser();
+        this.nameUser = user.getNameUser();
+        this.lastNameUser = user.getLastNameUser();
+        this.sex = user.getSex();
+        this.recipes = user.getRecipes().stream().map(Recipe::getId).collect(Collectors.toList());
     }
 }

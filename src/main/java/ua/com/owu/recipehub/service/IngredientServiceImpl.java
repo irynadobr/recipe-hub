@@ -43,17 +43,16 @@ public class IngredientServiceImpl implements IngredientService {
 //    }
 
     @Override
-    public List<IngredientListRecipeDto>  getAllIngredient(){
-        final List<Ingredient>ingredientDaoAll =ingredientDao.findAll();
+    public List<IngredientListRecipeDto> getAllIngredient() {
+        final List<Ingredient> ingredientDaoAll = ingredientDao.findAll();
         final List<IngredientListRecipeDto> collect = ingredientDaoAll.stream()
                 .map(ingredient -> {
-                    IngredientListRecipeDto ingredientListRecipeDto  = new IngredientListRecipeDto();
+                    IngredientListRecipeDto ingredientListRecipeDto = new IngredientListRecipeDto();
                     ingredientListRecipeDto.setIdIngredient(ingredient.getId());
                     ingredientListRecipeDto.setTypeCategoryIngredientUkr(ingredient.getTypeCategoryIngredientUkr());
                     ingredientListRecipeDto.setNameIngredientUkr(ingredient.getNameIngredientUkr());
 //                            ingredient.getQuantityIngredients()
 //                            .stream().map(QuantityIngredient::getId).filter(x->x.getIngredient_id()== ingredient.getId())
-
 
 
 //                          final List<Integer> idRecipe = ingredient.getRecipes().stream()
@@ -77,16 +76,16 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Ingredient getIngredient(int id) {
-       return ingredientDao.findById(id).orElseThrow(() ->new ResponseStatusException(HttpStatus.BAD_REQUEST, "No ingredient with id: " + id));
+        return ingredientDao.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No ingredient with id: " + id));
     }
 
     @Override
     public List<IngredientListNutrientsDto> getAllIngredientWeightNutrientQuantity() {
-        final List<Ingredient>ingredientNutrientDaoAll =ingredientDao.findAll();
+        final List<Ingredient> ingredientNutrientDaoAll = ingredientDao.findAll();
 
         final List<IngredientListNutrientsDto> collectNutrient = ingredientNutrientDaoAll.stream()
                 .map(ingredient -> {
-                    IngredientListNutrientsDto ingredientListNutrientsDto  = new IngredientListNutrientsDto();
+                    IngredientListNutrientsDto ingredientListNutrientsDto = new IngredientListNutrientsDto();
                     ingredientListNutrientsDto.setIdIngredient(ingredient.getId());
                     ingredientListNutrientsDto.setTypeCategoryIngredientUkr(ingredient.getTypeCategoryIngredientUkr());
                     ingredientListNutrientsDto.setNameIngredientUkr(ingredient.getNameIngredientUkr());

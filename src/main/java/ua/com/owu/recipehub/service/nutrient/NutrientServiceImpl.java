@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class NutrientServiceImpl implements NutrientService{
+public class NutrientServiceImpl implements NutrientService {
 
     @Autowired
     private NutrientDao nutrientDao;
@@ -21,13 +21,13 @@ public class NutrientServiceImpl implements NutrientService{
 
     @Override
     public List<NutrientsListIngredientDTO> getAllNutrients() {
-        final List<Nutrient>nutrientDaoAll =nutrientDao.findAll();
+        final List<Nutrient> nutrientDaoAll = nutrientDao.findAll();
         final List<NutrientsListIngredientDTO> collect = nutrientDaoAll.stream()
                 .map(nutrient -> {
-                    NutrientsListIngredientDTO nutrientsListIngredientDTO  = new NutrientsListIngredientDTO();
+                    NutrientsListIngredientDTO nutrientsListIngredientDTO = new NutrientsListIngredientDTO();
                     nutrientsListIngredientDTO.setIdNutrient(nutrient.getId());
                     nutrientsListIngredientDTO.setNameNutrient(nutrient.getNameNutrient());
-                                    final List<Integer> idIngredient= nutrient.getIngredients().stream()
+                    final List<Integer> idIngredient = nutrient.getIngredients().stream()
                             .map(Ingredient::getId)
                             .collect(Collectors.toList());
                     nutrientsListIngredientDTO.setIngredients(idIngredient);
@@ -38,7 +38,7 @@ public class NutrientServiceImpl implements NutrientService{
 
     @Override
     public Nutrient getNutrient(int id) {
-        return  nutrientDao.findById(id).orElseThrow(() ->new RuntimeException());
+        return nutrientDao.findById(id).orElseThrow(() -> new RuntimeException());
     }
 
     @Override

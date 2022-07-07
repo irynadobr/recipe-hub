@@ -15,7 +15,4 @@ public class IngredientListNutrientsDto {
     private String nameIngredientUkr;
     private int weightIngredient;
     private List<Integer> nutrient;
-
-
-
 }

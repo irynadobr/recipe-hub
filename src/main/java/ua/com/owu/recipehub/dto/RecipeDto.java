@@ -12,33 +12,34 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class RecipeDto  {
+public class RecipeDto {
     private int idRecipe;
     private String imageRecipe;
     private String titleRecipe;
     private int idAuthorRecipe;
     private String descriptionRecipe;
     private int idCategoryRecipe;
-    private List <RecipeListIngredientDto> ingredients;
+    private List<RecipeListIngredientDto> ingredients;
     private double rating;
 
 
+//    public RecipeDto(Recipe recipe) {
+//        this.idRecipe=recipe.getId();
+//        this.imageRecipe=recipe.getImageRecipe();
+//        this.idAuthorRecipe=recipe.getAuthorRecipe().getIdUser();
+//        this.idCategoryRecipe=recipe.getCategoryRecipe().getId();
+//        this.ingredients=new ArrayList<RecipeListIngredientDto>()
+//                .stream()
+//                .map(x->new RecipeListIngredientDto(x.getIngredientId(),x.getNameIngredientUkr(),x.getWeightIngredient())).collect(Collectors.toList());
+//        this.rating=recipe.getRating();
 
-    public RecipeDto(Recipe recipe) {
-        this.idRecipe=recipe.getId();
-        this.imageRecipe=recipe.getImageRecipe();
-        this.idAuthorRecipe=recipe.getAuthorRecipe().getIdUser();
-        this.idCategoryRecipe=recipe.getCategoryRecipe().getId();
-        this.ingredients=new ArrayList<RecipeListIngredientDto>()
-                .stream()
-                .map(x->new RecipeListIngredientDto(x.getIngredientId(),x.getNameIngredientUkr(),x.getWeightIngredient())).collect(Collectors.toList());
-        this.rating=recipe.getRating();
+
 //        this.ingredients=recipe.getWeightIngredients()
 //                .stream()
 //                .map(x->new RecipeListIngredientDto(x.getIngredient().getId(),x.getWeightIngredient()))
 //                .collect(Collectors.toList());
 //        this.rating=recipe.getRating();
-    }
+//    }
 
 }
 

@@ -13,10 +13,9 @@ public class RecipeListIngredientDto {
     private int weightIngredient;
 
 
-
-    public RecipeListIngredientDto(IngredientListRecipeDto ingredientListRecipeDto){
-        this.ingredientId=ingredientListRecipeDto.getIdIngredient();
-        this.nameIngredientUkr=ingredientListRecipeDto.getNameIngredientUkr();
-        this.weightIngredient=ingredientListRecipeDto.getWeightIngredient();
+    public RecipeListIngredientDto(IngredientListRecipeDto ingredientListRecipeDto) {
+        this.ingredientId = ingredientListRecipeDto.getIdIngredient();
+        this.nameIngredientUkr = ingredientListRecipeDto.getNameIngredientUkr();
+        this.weightIngredient = ingredientListRecipeDto.getWeightIngredient();
     }
 }

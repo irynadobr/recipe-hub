@@ -14,6 +14,7 @@ import ua.com.owu.recipehub.validator.IngredientValidator;
 
 import javax.validation.Valid;
 import java.util.List;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/ingredient")
@@ -21,7 +22,6 @@ import java.util.List;
 public class IngredientController {
     @Autowired
     private IngredientService ingredientService;
-
     @Autowired
     private IngredientValidator ingredientValidator;
 
@@ -30,7 +30,6 @@ public class IngredientController {
 //    public List<Ingredient> getIngredient() {
 //        return ingredientService.getAllIngredient();
 //    }
-
     @GetMapping(value = "")
     public List<IngredientListRecipeDto> getIngredient() {
         return ingredientService.getAllIngredient();
@@ -42,7 +41,7 @@ public class IngredientController {
     }
 
     @GetMapping(value = "/{id}")
-    public Ingredient getById(@PathVariable int id){
+    public Ingredient getById(@PathVariable int id) {
         return ingredientService.getIngredient(id);
     }
 
@@ -65,7 +64,7 @@ public class IngredientController {
     }
 
     @InitBinder
-    public void initBinder (WebDataBinder dataBinder) {
+    public void initBinder(WebDataBinder dataBinder) {
         dataBinder.addValidators(ingredientValidator);
     }
 }
