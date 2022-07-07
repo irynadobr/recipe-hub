@@ -14,6 +14,9 @@ public class IngredientListRecipeDto {
     private int idIngredient;
     private String typeCategoryIngredientUkr;
     private String nameIngredientUkr;
+    private String typeCategoryIngredient;
+    private String nameIngredient;
+
     private int weightIngredient;
     private List<Integer> recipes;
 

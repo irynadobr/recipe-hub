@@ -31,9 +31,9 @@ public class Ingredient {
 //            cascade = CascadeType.ALL)
 
 
-    @ManyToMany(mappedBy = "ingredients")
-    @JsonIgnore
-    private List<Recipe> recipes;
+//    @ManyToMany(mappedBy = "ingredients")
+//    @JsonIgnore
+//    private List<Recipe> recipes;
 
 
     @OneToMany(mappedBy = "ingredient",
@@ -57,7 +57,7 @@ public class Ingredient {
         this.nameIngredientUkr = nameIngredientUkr;
         this.typeCategoryIngredient = typeCategoryIngredient;
         this.nameIngredient = nameIngredient;
-        this.recipes = recipes;
+//        this.recipes = recipes;
         this.weightIngredients = weightIngredients;
 
     }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ua.com.owu.recipehub.dao.CategoryRecipeDao;
+import ua.com.owu.recipehub.dao.IngredientDao;
 import ua.com.owu.recipehub.dao.RecipeDao;
 import ua.com.owu.recipehub.dao.UserDao;
 import ua.com.owu.recipehub.dto.*;
@@ -35,7 +36,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Autowired
     private UserDao userDao;
     @Autowired
-    private IngredientService ingredientService;
+    private IngredientDao ingredientDao;
 
 
     //    @Override
@@ -118,17 +119,17 @@ public class RecipeServiceImpl implements RecipeService {
 //        recipeCreate.setCategoryRecipe(categoryRecipeService.getCategoryRecipe(recipe.getIdCategoryRecipe()));
         recipeCreate.setWeightIngredients(weightIngredientsCreate);
 
-        List<Ingredient> ingredintsCreate = new ArrayList<>();
+//        List<Ingredient> ingredintsCreate = new ArrayList<>();
 
         recipe.getIngredients()
                 .stream()
                 .forEach(x -> {
-                    Ingredient ingredient = ingredientService.getIngredient(x.getIngredientId());
-                    ingredintsCreate.add(ingredient);
+                    Ingredient ingredient = ingredientDao.findById(x.getIngredientId()).get();
+//                    ingredintsCreate.add(ingredient);
                     WeightIngredient weightIngredient = new WeightIngredient(recipeCreate, ingredient, x.getWeightIngredient());
                     recipeCreate.getWeightIngredients().add(weightIngredient);
                 });
-        recipeCreate.setIngredients(ingredintsCreate);
+//        recipeCreate.setIngredients(ingredintsCreate);
         recipeDao.save(recipeCreate);
         recipe.setIdRecipe(recipeCreate.getId());
 
@@ -153,17 +154,17 @@ public class RecipeServiceImpl implements RecipeService {
         List<WeightIngredient> weightIngredientsUpdate = new ArrayList<>();
         recipeUpdate.setWeightIngredients(weightIngredientsUpdate);
 
-        List<Ingredient> ingredintsUpdate = new ArrayList<>();
+//        List<Ingredient> ingredintsUpdate = new ArrayList<>();
 
         recipe.getIngredients()
                 .stream()
                 .forEach(x -> {
-                    Ingredient ingredient = ingredientService.getIngredient(x.getIngredientId());
-                    ingredintsUpdate.add(ingredient);
+                    Ingredient ingredient = ingredientDao.findById(x.getIngredientId()).get();
+//                    ingredintsUpdate.add(ingredient);
                     WeightIngredient weightIngredient = new WeightIngredient(recipeUpdate, ingredient, x.getWeightIngredient());
                     recipeUpdate.getWeightIngredients().add(weightIngredient);
                 });
-        recipeUpdate.setIngredients(ingredintsUpdate);
+//        recipeUpdate.setIngredients(ingredintsUpdate);
 
 
         recipeDao.saveAndFlush(recipeUpdate);

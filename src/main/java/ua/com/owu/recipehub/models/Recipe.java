@@ -28,10 +28,10 @@ public class Recipe  {
     @ManyToOne(targetEntity = CategoryRecipe.class)
 //    @JsonIgnore
     private CategoryRecipe categoryRecipe;
-    @ManyToMany(cascade = CascadeType.ALL, targetEntity = Ingredient.class)
-    @JoinTable(name = "recipeIngredient", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
-    @JsonIgnore
-    private List<Ingredient> ingredients;
+//    @ManyToMany(targetEntity = Ingredient.class)
+//    @JoinTable(name = "recipeIngredient", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+//    @JsonIgnore
+//    private List<Ingredient> ingredients;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WeightIngredient> weightIngredients;

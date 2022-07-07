@@ -17,7 +17,7 @@ public interface IngredientService {
 
     void deleteIngredient(int id);
 
-    Ingredient getIngredient(int id);
+    IngredientListRecipeDto getIngredient(int id);
 
     List<IngredientListNutrientsDto> getAllIngredientWeightNutrientQuantity();
 }

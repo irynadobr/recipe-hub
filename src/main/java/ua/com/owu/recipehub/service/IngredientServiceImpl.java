@@ -8,11 +8,11 @@ import org.springframework.web.server.ResponseStatusException;
 import ua.com.owu.recipehub.dao.IngredientDao;
 import ua.com.owu.recipehub.dto.IngredientListNutrientsDto;
 import ua.com.owu.recipehub.dto.IngredientListRecipeDto;
+import ua.com.owu.recipehub.dto.RecipeDto;
 import ua.com.owu.recipehub.dto.RecipeListIngredientDto;
 import ua.com.owu.recipehub.models.Ingredient;
 import ua.com.owu.recipehub.models.Nutrient;
 import ua.com.owu.recipehub.models.Recipe;
-import ua.com.owu.recipehub.models.WeightIngredient;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,20 +51,18 @@ public class IngredientServiceImpl implements IngredientService {
                     ingredientListRecipeDto.setIdIngredient(ingredient.getId());
                     ingredientListRecipeDto.setTypeCategoryIngredientUkr(ingredient.getTypeCategoryIngredientUkr());
                     ingredientListRecipeDto.setNameIngredientUkr(ingredient.getNameIngredientUkr());
-//                            ingredient.getQuantityIngredients()
-//                            .stream().map(QuantityIngredient::getId).filter(x->x.getIngredient_id()== ingredient.getId())
+                    ingredientListRecipeDto.setTypeCategoryIngredient(ingredient.getTypeCategoryIngredient());
+                    ingredientListRecipeDto.setNameIngredient(ingredient.getNameIngredient());
 
-
-//                          final List<Integer> idRecipe = ingredient.getRecipes().stream()
-//                            .map(Recipe::getId)
-//                            .collect(Collectors.toList());
-//                    ingredientListRecipeDto.setRecipes(idRecipe);
+                    final List<Integer> idRecipe = ingredient.getWeightIngredients().stream()
+                            .map(x -> x.getRecipe().getId())
+                            .collect(Collectors.toList());
+                    ingredientListRecipeDto.setRecipes(idRecipe);
                     return ingredientListRecipeDto;
 
                 }).collect(Collectors.toList());
         return collect;
     }
-
 
     @Override
     public void deleteIngredient(int id) {
@@ -75,8 +73,24 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public Ingredient getIngredient(int id) {
-        return ingredientDao.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No ingredient with id: " + id));
+    public IngredientListRecipeDto getIngredient(int id) {
+
+        final Ingredient ingredientDaoId = ingredientDao.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No ingredient with id: " + id));
+
+        IngredientListRecipeDto ingredientListRecipeDto = new IngredientListRecipeDto();
+        ingredientListRecipeDto.setIdIngredient(ingredientDaoId.getId());
+        ingredientListRecipeDto.setNameIngredientUkr(ingredientDaoId.getNameIngredientUkr());
+        ingredientListRecipeDto.setTypeCategoryIngredientUkr(ingredientDaoId.getTypeCategoryIngredientUkr());
+        ingredientListRecipeDto.setNameIngredient(ingredientDaoId.getNameIngredient());
+        ingredientListRecipeDto.setTypeCategoryIngredient(ingredientDaoId.getTypeCategoryIngredient());
+        final List<Integer> idRecipe = ingredientDaoId.getWeightIngredients()
+                .stream()
+                .map(x -> x.getRecipe().getId())
+                .collect(Collectors.toList());
+        ingredientListRecipeDto.setRecipes(idRecipe);
+
+        return ingredientListRecipeDto;
     }
 
     @Override
