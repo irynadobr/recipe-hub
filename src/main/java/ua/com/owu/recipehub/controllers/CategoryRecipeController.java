@@ -56,7 +56,7 @@ public class CategoryRecipeController {
     }
 
     @GetMapping(value = "/{id}")
-    public CategoryRecipe getByIdCategoryRecipe(@PathVariable int id) {
+    public CategoryListRecipeDto getByIdCategoryRecipe(@PathVariable int id) {
         return categoryRecipeService.getCategoryRecipe(id);
     }
 

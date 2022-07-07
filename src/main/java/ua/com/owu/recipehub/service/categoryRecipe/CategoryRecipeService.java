@@ -10,7 +10,7 @@ public interface CategoryRecipeService {
 
     List<CategoryListRecipeDto> getALLCategoriesRecipes();
 
-    CategoryRecipe getCategoryRecipe(int id);
+    CategoryListRecipeDto getCategoryRecipe(int id);
 
     CategoryRecipe createCategoryRecipe(CategoryRecipe categoryRecipe);
 
