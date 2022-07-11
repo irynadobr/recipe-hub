@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ua.com.owu.recipehub.dao.CategoryRecipeDao;
 import ua.com.owu.recipehub.dto.CategoryListRecipeDto;
-import ua.com.owu.recipehub.dto.IngredientListRecipeDto;
 import ua.com.owu.recipehub.models.CategoryRecipe;
-import ua.com.owu.recipehub.models.Ingredient;
 import ua.com.owu.recipehub.models.Recipe;
 
 import java.util.List;
@@ -41,11 +39,9 @@ public class CategoryRecipeServiceImpl implements CategoryRecipeService {
     public CategoryListRecipeDto getCategoryRecipe(int id) {
         final CategoryRecipe categoryRecipeDaoId = categoryRecipeDao.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No category with id: " + id));
-
         CategoryListRecipeDto categoryListRecipeDto = new CategoryListRecipeDto();
         categoryListRecipeDto.setIdCategoryRecipe(categoryRecipeDaoId.getId());
         categoryListRecipeDto.setNameCategoryRecipe(categoryRecipeDaoId.getNameCategoryRecipe());
-
         final List<Integer> idRecipe = categoryRecipeDaoId.getRecipes()
                 .stream()
                 .map(Recipe::getId)
@@ -53,11 +49,7 @@ public class CategoryRecipeServiceImpl implements CategoryRecipeService {
         categoryListRecipeDto.setRecipes(idRecipe);
 
         return categoryListRecipeDto;
-
-
-
 //        return categoryRecipeDao.findById(id).orElseThrow(() -> new RuntimeException());
-
     }
 
     @Override

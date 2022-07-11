@@ -77,7 +77,6 @@ public class RecipeServiceImpl implements RecipeService {
     public RecipeDto getRecipe(int id) {
         final Recipe recipeDaoId = recipeDao.findById(id)
                 .orElseThrow(() -> new RuntimeException());
-
         RecipeDto recipeDto = new RecipeDto();
         recipeDto.setIdRecipe(recipeDaoId.getId());
         recipeDto.setImageRecipe(recipeDaoId.getImageRecipe());
@@ -85,20 +84,16 @@ public class RecipeServiceImpl implements RecipeService {
         recipeDto.setIdAuthorRecipe(recipeDaoId.getAuthorRecipe().getIdUser());
         recipeDto.setDescriptionRecipe(recipeDaoId.getDescriptionRecipe());
         recipeDto.setIdCategoryRecipe(recipeDaoId.getCategoryRecipe().getId());
-
         final List<RecipeListIngredientDto> ingredientWithRecipe = recipeDaoId.getWeightIngredients()
                 .stream()
                 .map(x -> new RecipeListIngredientDto(x.getIngredient().getId(),
                         x.getIngredient().getNameIngredientUkr(),
                         x.getWeightIngredient()))
                 .collect(Collectors.toList());
-
         recipeDto.setIngredients(ingredientWithRecipe);
         recipeDto.setRating(recipeDaoId.getRating());
-
         return recipeDto;
     }
-
 
 //    @Override
 //    public Recipe getRecipe(int id) {
@@ -118,9 +113,7 @@ public class RecipeServiceImpl implements RecipeService {
         recipeCreate.setCategoryRecipe(categoryRecipeDao.findById(recipe.getIdCategoryRecipe()).get());
 //        recipeCreate.setCategoryRecipe(categoryRecipeService.getCategoryRecipe(recipe.getIdCategoryRecipe()));
         recipeCreate.setWeightIngredients(weightIngredientsCreate);
-
 //        List<Ingredient> ingredintsCreate = new ArrayList<>();
-
         recipe.getIngredients()
                 .stream()
                 .forEach(x -> {
@@ -132,7 +125,6 @@ public class RecipeServiceImpl implements RecipeService {
 //        recipeCreate.setIngredients(ingredintsCreate);
         recipeDao.save(recipeCreate);
         recipe.setIdRecipe(recipeCreate.getId());
-
         return recipe;
     }
 
@@ -143,32 +135,23 @@ public class RecipeServiceImpl implements RecipeService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No recipe found");
         }
         Recipe recipeUpdate = recipeDao.findById(id).get();
+        recipeUpdate.getWeightIngredients().clear();
         recipeUpdate.setId(id);
-
         recipeUpdate.setTitleRecipe(recipe.getTitleRecipe());
         recipeUpdate.setImageRecipe(recipe.getImageRecipe());
         recipeUpdate.setDescriptionRecipe(recipe.getDescriptionRecipe());
         recipeUpdate.setRating(recipe.getRating());
         recipeUpdate.setAuthorRecipe(userDao.findById(recipe.getIdAuthorRecipe()).get());
         recipeUpdate.setCategoryRecipe(categoryRecipeDao.findById(recipe.getIdCategoryRecipe()).get());
-        List<WeightIngredient> weightIngredientsUpdate = new ArrayList<>();
-        recipeUpdate.setWeightIngredients(weightIngredientsUpdate);
-
-//        List<Ingredient> ingredintsUpdate = new ArrayList<>();
-
         recipe.getIngredients()
                 .stream()
                 .forEach(x -> {
                     Ingredient ingredient = ingredientDao.findById(x.getIngredientId()).get();
-//                    ingredintsUpdate.add(ingredient);
                     WeightIngredient weightIngredient = new WeightIngredient(recipeUpdate, ingredient, x.getWeightIngredient());
                     recipeUpdate.getWeightIngredients().add(weightIngredient);
                 });
-//        recipeUpdate.setIngredients(ingredintsUpdate);
-
-
         recipeDao.saveAndFlush(recipeUpdate);
-
+        recipe.setIdRecipe(id);
         return recipe;
     }
 

@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-
+@AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,7 +15,7 @@ public class WeightIngredient {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("ingredient_id")
     private Ingredient ingredient;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade =CascadeType.MERGE)
     @MapsId("recipe_id")
     private Recipe recipe;
     @Column

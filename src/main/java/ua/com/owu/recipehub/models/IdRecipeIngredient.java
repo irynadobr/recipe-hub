@@ -18,8 +18,5 @@ public class IdRecipeIngredient implements Serializable {
     private int ingredient_id;
 
 
-//    public void setRecipeId(IdRecipeIngredient idRecipeIngredient) {
-//
-//        this.recipe_id = idRecipeIngredient.getRecipe_id();
-//    }
+
 }

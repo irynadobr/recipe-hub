@@ -1,15 +1,14 @@
 package ua.com.owu.recipehub.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ua.com.owu.recipehub.models.Ingredient;
 
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class IngredientListRecipeDto {
     private int idIngredient;
     private String typeCategoryIngredientUkr;

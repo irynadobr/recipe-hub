@@ -1,12 +1,11 @@
 package ua.com.owu.recipehub.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class RecipeListIngredientDto {
     private int ingredientId;
     private String nameIngredientUkr;

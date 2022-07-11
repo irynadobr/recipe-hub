@@ -1,8 +1,6 @@
 package ua.com.owu.recipehub.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ua.com.owu.recipehub.models.ActivityTypeUser;
 import ua.com.owu.recipehub.models.Recipe;
 import ua.com.owu.recipehub.models.Sex;
@@ -14,7 +12,8 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class UserListRecipeDto {
     private int idUser;
     private String photoUser;

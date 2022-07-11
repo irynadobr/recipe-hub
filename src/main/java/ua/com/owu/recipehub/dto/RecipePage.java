@@ -1,15 +1,14 @@
 package ua.com.owu.recipehub.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ua.com.owu.recipehub.models.Recipe;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class RecipePage {
     private List<RecipeDto> recipes;
     private int totalPage;
