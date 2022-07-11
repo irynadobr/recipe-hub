@@ -136,7 +136,7 @@ public class RecipeServiceImpl implements RecipeService {
         }
         Recipe recipeUpdate = recipeDao.findById(id).get();
         recipeUpdate.getWeightIngredients().clear();
-        recipeUpdate.setId(id);
+//        recipeUpdate.setId(id);
         recipeUpdate.setTitleRecipe(recipe.getTitleRecipe());
         recipeUpdate.setImageRecipe(recipe.getImageRecipe());
         recipeUpdate.setDescriptionRecipe(recipe.getDescriptionRecipe());
