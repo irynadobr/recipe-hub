@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ua.com.owu.recipehub.dao.CategoryRecipeDao;
 import ua.com.owu.recipehub.dto.CategoryListRecipeDto;
+import ua.com.owu.recipehub.dto.CategoryRecipeDto;
 import ua.com.owu.recipehub.models.CategoryRecipe;
 import ua.com.owu.recipehub.models.Recipe;
 
@@ -53,17 +54,27 @@ public class CategoryRecipeServiceImpl implements CategoryRecipeService {
     }
 
     @Override
-    public CategoryRecipe createCategoryRecipe(CategoryRecipe categoryRecipe) {
-        return categoryRecipeDao.saveAndFlush(categoryRecipe);
+    public CategoryRecipeDto createCategoryRecipe(CategoryRecipeDto categoryRecipe) {
+       CategoryRecipe categoryRecipeCreate = new CategoryRecipe();
+        categoryRecipeCreate.setNameCategoryRecipe(categoryRecipe.getNameCategoryRecipe());
+              categoryRecipeDao.saveAndFlush(categoryRecipeCreate);
+        categoryRecipe.setIdCategoryRecipe(categoryRecipeCreate.getId());
+        return categoryRecipe;
+
     }
 
     @Override
-    public CategoryRecipe updateCategoryRecipe(int id, CategoryRecipe categoryRecipe) {
-        categoryRecipe.setId(id);
+    public CategoryRecipeDto updateCategoryRecipe(int id, CategoryRecipeDto categoryRecipe) {
         if (!categoryRecipeDao.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No categoryRecipe found");
         }
-        return categoryRecipeDao.saveAndFlush(categoryRecipe);
+        CategoryRecipe categoryRecipeUpdate =categoryRecipeDao.findById(id).get();
+        categoryRecipeUpdate.setNameCategoryRecipe(categoryRecipe.getNameCategoryRecipe());
+        categoryRecipeDao.saveAndFlush(categoryRecipeUpdate);
+
+        categoryRecipe.setIdCategoryRecipe(id);
+
+        return categoryRecipe;
     }
 
     @Override

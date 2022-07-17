@@ -1,7 +1,6 @@
 package ua.com.owu.recipehub.service.user;
 
 import ua.com.owu.recipehub.dto.UserListRecipeDto;
-import ua.com.owu.recipehub.models.User;
 
 import java.util.List;
 
@@ -10,11 +9,11 @@ public interface UserService {
 
 //    User getUser(int id);
 
-    User createUser(User user);
+    UserListRecipeDto createUser(UserListRecipeDto user);
 
     void deleteUser(int id);
 
-    User updateUser(int id, User user);
+    UserListRecipeDto updateUser(int id, UserListRecipeDto user);
 
 
     UserListRecipeDto getUser(int id);

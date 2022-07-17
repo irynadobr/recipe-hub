@@ -6,11 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import ua.com.owu.recipehub.dto.IngredientDto;
 import ua.com.owu.recipehub.dto.IngredientListNutrientsDto;
-import ua.com.owu.recipehub.dto.IngredientListRecipeDto;
-import ua.com.owu.recipehub.models.Ingredient;
 import ua.com.owu.recipehub.service.IngredientService;
-import ua.com.owu.recipehub.validator.IngredientValidator;
+import ua.com.owu.recipehub.validator.IngredientDtoValidator;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,7 +22,7 @@ public class IngredientController {
     @Autowired
     private IngredientService ingredientService;
     @Autowired
-    private IngredientValidator ingredientValidator;
+    private IngredientDtoValidator ingredientDtoValidator;
 
 
 //    @GetMapping(value = "")
@@ -31,7 +30,7 @@ public class IngredientController {
 //        return ingredientService.getAllIngredient();
 //    }
     @GetMapping(value = "")
-    public List<IngredientListRecipeDto> getAllIngredient() {
+    public List<IngredientDto> getAllIngredient() {
         return ingredientService.getAllIngredient();
     }
 
@@ -41,19 +40,19 @@ public class IngredientController {
     }
 
     @GetMapping(value = "/{id}")
-    public IngredientListRecipeDto getIngredientById(@PathVariable int id) {
+    public IngredientDto getIngredientById(@PathVariable int id) {
         return ingredientService.getIngredient(id);
     }
 
     @PostMapping(value = "")
     @ResponseStatus(HttpStatus.CREATED)
-    public Ingredient insertIngredient(@RequestBody @Valid Ingredient ingredient) {
+    public IngredientDto insertIngredient(@RequestBody @Valid IngredientDto ingredient) {
         return ingredientService.createIngredient(ingredient);
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Ingredient updateIngredient(@PathVariable int id, @RequestBody @Valid Ingredient ingredient) {
+    public IngredientDto updateIngredient(@PathVariable int id, @RequestBody @Valid IngredientDto ingredient) {
         return ingredientService.updateIngredient(id, ingredient);
     }
 
@@ -65,6 +64,6 @@ public class IngredientController {
 
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
-        dataBinder.addValidators(ingredientValidator);
+        dataBinder.addValidators(ingredientDtoValidator);
     }
 }

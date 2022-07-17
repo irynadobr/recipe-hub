@@ -3,6 +3,7 @@ package ua.com.owu.recipehub.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @AllArgsConstructor
@@ -15,10 +16,12 @@ public class Recipe  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String imageRecipe;
+    @NotBlank
     private String titleRecipe;
     @ManyToOne(targetEntity = User.class)
 //    @JsonIgnore
     private User authorRecipe;
+    @NotBlank
     private String descriptionRecipe;
     //    @ManyToOne(cascade = CascadeType.ALL,  targetEntity = CategoryRecipe.class)
     @ManyToOne(targetEntity = CategoryRecipe.class)

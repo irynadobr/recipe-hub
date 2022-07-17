@@ -1,23 +1,22 @@
 package ua.com.owu.recipehub.service;
 
+import ua.com.owu.recipehub.dto.IngredientDto;
 import ua.com.owu.recipehub.dto.IngredientListNutrientsDto;
-import ua.com.owu.recipehub.dto.IngredientListRecipeDto;
-import ua.com.owu.recipehub.models.Ingredient;
 
 import java.util.List;
 
 public interface IngredientService {
-    Ingredient createIngredient(Ingredient ingredient);
+    IngredientDto createIngredient( IngredientDto ingredient);
 
 
-    Ingredient updateIngredient(int id, Ingredient ingredient);
+    IngredientDto updateIngredient(int id,  IngredientDto ingredient);
 
 
-    List<IngredientListRecipeDto> getAllIngredient();
+    List<IngredientDto> getAllIngredient();
 
     void deleteIngredient(int id);
 
-    IngredientListRecipeDto getIngredient(int id);
+    IngredientDto getIngredient(int id);
 
     List<IngredientListNutrientsDto> getAllIngredientWeightNutrientQuantity();
 }

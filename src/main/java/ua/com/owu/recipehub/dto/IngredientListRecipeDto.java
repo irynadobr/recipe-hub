@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class IngredientListRecipeDto {
+public class IngredientListRecipeDto  {
     private int idIngredient;
     private String typeCategoryIngredientUkr;
     private String nameIngredientUkr;

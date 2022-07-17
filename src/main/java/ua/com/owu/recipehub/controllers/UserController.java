@@ -36,13 +36,13 @@ public class UserController {
 
     @PostMapping(value = "")
     @ResponseStatus(HttpStatus.CREATED)
-    public User insertUser(@RequestBody User user) {
+    public UserListRecipeDto insertUser(@RequestBody UserListRecipeDto user) {
         return userService.createUser(user);
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public User updateUser(@PathVariable int id, @RequestBody User user) {
+    public UserListRecipeDto updateUser(@PathVariable int id, @RequestBody UserListRecipeDto user) {
         return userService.updateUser(id, user);
     }
 

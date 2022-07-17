@@ -47,10 +47,10 @@ public class User {
     @JsonIgnore
     private List<Recipe> recipes;
 
-    public User(UserListRecipeDto userListRecipeDto) {
-        this.idUser = userListRecipeDto.getIdUser();
-
-
-    }
+//    public User(UserListRecipeDto userListRecipeDto) {
+//        this.idUser = userListRecipeDto.getIdUser();
+//
+//
+//    }
 
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ua.com.owu.recipehub.dto.CategoryListRecipeDto;
+import ua.com.owu.recipehub.dto.CategoryRecipeDto;
 import ua.com.owu.recipehub.models.CategoryRecipe;
 import ua.com.owu.recipehub.service.categoryRecipe.CategoryRecipeService;
 
@@ -62,13 +63,13 @@ public class CategoryRecipeController {
 
     @PostMapping(value = "")
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryRecipe insertCategoryRecipe(@RequestBody CategoryRecipe categoryRecipe) {
+    public CategoryRecipeDto insertCategoryRecipe(@RequestBody CategoryRecipeDto categoryRecipe) {
         return categoryRecipeService.createCategoryRecipe(categoryRecipe);
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public CategoryRecipe updateCategoryRecipe(@PathVariable int id, @RequestBody CategoryRecipe categoryRecipe) {
+    public CategoryRecipeDto updateCategoryRecipe(@PathVariable int id, @RequestBody CategoryRecipeDto categoryRecipe) {
         return categoryRecipeService.updateCategoryRecipe(id, categoryRecipe);
     }
 

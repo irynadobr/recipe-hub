@@ -6,13 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ua.com.owu.recipehub.dao.IngredientDao;
+import ua.com.owu.recipehub.dto.IngredientDto;
 import ua.com.owu.recipehub.dto.IngredientListNutrientsDto;
-import ua.com.owu.recipehub.dto.IngredientListRecipeDto;
-import ua.com.owu.recipehub.dto.RecipeDto;
-import ua.com.owu.recipehub.dto.RecipeListIngredientDto;
+import ua.com.owu.recipehub.models.CategoryRecipe;
 import ua.com.owu.recipehub.models.Ingredient;
 import ua.com.owu.recipehub.models.Nutrient;
-import ua.com.owu.recipehub.models.Recipe;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,19 +21,6 @@ public class IngredientServiceImpl implements IngredientService {
     @Autowired
     private IngredientDao ingredientDao;
 
-    @Override
-    public Ingredient createIngredient(Ingredient ingredient) {
-        return ingredientDao.saveAndFlush(ingredient);
-    }
-
-    @Override
-    public Ingredient updateIngredient(int id, Ingredient ingredient) {
-        ingredient.setId(id);
-        if (!ingredientDao.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No ingredient found");
-        }
-        return ingredientDao.saveAndFlush(ingredient);
-    }
 
 //    @Override
 //    public List<IngredientListRecipeDto> getAllIngredient() {
@@ -43,25 +28,76 @@ public class IngredientServiceImpl implements IngredientService {
 //    }
 
     @Override
-    public List<IngredientListRecipeDto> getAllIngredient() {
+    public List<IngredientDto> getAllIngredient() {
         final List<Ingredient> ingredientDaoAll = ingredientDao.findAll();
-        final List<IngredientListRecipeDto> collect = ingredientDaoAll.stream()
+        final List<IngredientDto> collect = ingredientDaoAll.stream()
                 .map(ingredient -> {
-                    IngredientListRecipeDto ingredientListRecipeDto = new IngredientListRecipeDto();
-                    ingredientListRecipeDto.setIdIngredient(ingredient.getId());
-                    ingredientListRecipeDto.setTypeCategoryIngredientUkr(ingredient.getTypeCategoryIngredientUkr());
-                    ingredientListRecipeDto.setNameIngredientUkr(ingredient.getNameIngredientUkr());
-                    ingredientListRecipeDto.setTypeCategoryIngredient(ingredient.getTypeCategoryIngredient());
-                    ingredientListRecipeDto.setNameIngredient(ingredient.getNameIngredient());
+                    IngredientDto ingredientDto = new IngredientDto();
+                    ingredientDto.setIdIngredient(ingredient.getId());
+                    ingredientDto.setTypeCategoryIngredientUkr(ingredient.getTypeCategoryIngredientUkr());
+                    ingredientDto.setNameIngredientUkr(ingredient.getNameIngredientUkr());
+                    ingredientDto.setTypeCategoryIngredient(ingredient.getTypeCategoryIngredient());
+                    ingredientDto.setNameIngredient(ingredient.getNameIngredient());
 
                     final List<Integer> idRecipe = ingredient.getWeightIngredients().stream()
                             .map(x -> x.getRecipe().getId())
                             .collect(Collectors.toList());
-                    ingredientListRecipeDto.setRecipes(idRecipe);
-                    return ingredientListRecipeDto;
+                    ingredientDto.setRecipes(idRecipe);
+                    return ingredientDto;
 
                 }).collect(Collectors.toList());
         return collect;
+    }
+
+    @Override
+    public IngredientDto getIngredient(int id) {
+
+        final Ingredient ingredientDaoId = ingredientDao.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No ingredient with id: " + id));
+
+        IngredientDto ingredientDto = new IngredientDto();
+        ingredientDto.setIdIngredient(ingredientDaoId.getId());
+        ingredientDto.setNameIngredientUkr(ingredientDaoId.getNameIngredientUkr());
+        ingredientDto.setTypeCategoryIngredientUkr(ingredientDaoId.getTypeCategoryIngredientUkr());
+        ingredientDto.setNameIngredient(ingredientDaoId.getNameIngredient());
+        ingredientDto.setTypeCategoryIngredient(ingredientDaoId.getTypeCategoryIngredient());
+        final List<Integer> idRecipe = ingredientDaoId.getWeightIngredients()
+                .stream()
+                .map(x -> x.getRecipe().getId())
+                .collect(Collectors.toList());
+        ingredientDto.setRecipes(idRecipe);
+
+        return ingredientDto;
+    }
+
+    @Override
+    public IngredientDto createIngredient(IngredientDto ingredient) {
+
+        Ingredient ingredientCreate = new Ingredient();
+        ingredientCreate.setNameIngredientUkr(ingredient.getNameIngredientUkr());
+        ingredientCreate.setTypeCategoryIngredientUkr(ingredient.getTypeCategoryIngredientUkr());
+        ingredientCreate.setNameIngredient(ingredient.getNameIngredient());
+        ingredientCreate.setTypeCategoryIngredient(ingredient.getTypeCategoryIngredient());
+        ingredientDao.saveAndFlush(ingredientCreate);
+        ingredient.setIdIngredient(ingredientCreate.getId());
+
+        return ingredient;
+    }
+
+    @Override
+    public IngredientDto updateIngredient(int id, IngredientDto ingredient) {
+
+        if (!ingredientDao.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No ingredient found");
+        }
+        Ingredient ingredientUpdate =ingredientDao.findById(id).get();
+        ingredientUpdate.setNameIngredientUkr(ingredient.getNameIngredientUkr());
+        ingredientUpdate.setTypeCategoryIngredientUkr(ingredient.getTypeCategoryIngredientUkr());
+        ingredientUpdate.setNameIngredient(ingredient.getNameIngredient());
+        ingredientUpdate.setTypeCategoryIngredient(ingredient.getTypeCategoryIngredient());
+           ingredientDao.saveAndFlush(ingredientUpdate);
+        ingredient.setIdIngredient(id);
+        return ingredient;
     }
 
     @Override
@@ -72,26 +108,6 @@ public class IngredientServiceImpl implements IngredientService {
         ingredientDao.deleteById(id);
     }
 
-    @Override
-    public IngredientListRecipeDto getIngredient(int id) {
-
-        final Ingredient ingredientDaoId = ingredientDao.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No ingredient with id: " + id));
-
-        IngredientListRecipeDto ingredientListRecipeDto = new IngredientListRecipeDto();
-        ingredientListRecipeDto.setIdIngredient(ingredientDaoId.getId());
-        ingredientListRecipeDto.setNameIngredientUkr(ingredientDaoId.getNameIngredientUkr());
-        ingredientListRecipeDto.setTypeCategoryIngredientUkr(ingredientDaoId.getTypeCategoryIngredientUkr());
-        ingredientListRecipeDto.setNameIngredient(ingredientDaoId.getNameIngredient());
-        ingredientListRecipeDto.setTypeCategoryIngredient(ingredientDaoId.getTypeCategoryIngredient());
-        final List<Integer> idRecipe = ingredientDaoId.getWeightIngredients()
-                .stream()
-                .map(x -> x.getRecipe().getId())
-                .collect(Collectors.toList());
-        ingredientListRecipeDto.setRecipes(idRecipe);
-
-        return ingredientListRecipeDto;
-    }
 
     @Override
     public List<IngredientListNutrientsDto> getAllIngredientWeightNutrientQuantity() {

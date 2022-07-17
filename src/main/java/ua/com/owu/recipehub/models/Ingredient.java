@@ -2,6 +2,7 @@
 package ua.com.owu.recipehub.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.internal.NotNull;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.*;
 
@@ -21,8 +22,11 @@ public class Ingredient {
     private int id;
     @NotBlank
     private String typeCategoryIngredientUkr;
+    @NotBlank
     private String nameIngredientUkr;
+    @NotBlank
     private String typeCategoryIngredient;
+    @NotBlank
     private String nameIngredient;
 
 //    @OneToMany(
@@ -50,7 +54,7 @@ public class Ingredient {
             String nameIngredientUkr,
             String typeCategoryIngredient,
             String nameIngredient,
-            List<Recipe> recipes,
+//            List<Recipe> recipes,
             List<WeightIngredient> weightIngredients
     ) {
         this.typeCategoryIngredientUkr = typeCategoryIngredientUkr;
